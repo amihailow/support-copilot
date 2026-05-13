@@ -1,0 +1,46 @@
+{
+  "name": "support-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check-env": "tsx scripts/check-env.ts",
+    "db:migrate": "echo 'Paste supabase/schema.sql into your Supabase SQL editor and run it. CLI wiring lands in a follow-up.'",
+    "ingest": "tsx scripts/ingest.ts",
+    "seed": "tsx scripts/seed.ts",
+    "eval": "tsx scripts/eval.ts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.96.0",
+    "@supabase/supabase-js": "^2.105.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cohere-ai": "^8.0.0",
+    "lucide-react": "^1.14.0",
+    "next": "16.2.6",
+    "openai": "^6.37.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^3.2.4",
+    "dotenv": "^17.4.2",
+    "js-yaml": "^4.1.1",
+    "langfuse": "^3.38.20",
+    "tailwindcss": "^4",
+    "tsx": "^4.21.0",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
+  }
+}
