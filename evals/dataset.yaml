@@ -1,0 +1,168 @@
+# Eval dataset for Support Copilot.
+# Each test runs through the full pipeline (classify -> retrieve -> rerank -> generate)
+# and is scored against the expected fields below.
+#
+# Run: npm run eval
+# Output: evals/RESULTS.md
+
+tests:
+  - id: refund-within-window
+    ticket_id: t-001
+    ticket:
+      subject: "Refund for plan I never used"
+      body: "Hi - I signed up for the Pro plan 5 days ago and life got in the way. I literally have not logged in once since then. Could I get a refund? Order ID is N-49213."
+    expected:
+      category: refund
+      priority: low
+      sentiment: neutral
+      must_cite: "Refund Policy"
+      must_contain_any:
+        - "14 days"
+        - "14-day"
+        - "refund"
+      must_not_contain:
+        - "non-refundable"
+        - "cannot offer a refund"
+
+  - id: refund-outside-window
+    ticket_id: t-007
+    ticket:
+      subject: "Old charge - want refund"
+      body: "Hi, looking at my statements I see I was charged $588 last year for an annual plan that I never used. Can you refund that please?"
+    expected:
+      category: refund
+      priority: low
+      sentiment: neutral
+      must_cite: "Refund Policy"
+      must_contain_any:
+        - "14 days"
+        - "outside our refund window"
+        - "not able to issue"
+        - "cap"
+
+  - id: api-rate-spike
+    ticket_id: t-002
+    ticket:
+      subject: "Production API hit with 429s since 9am"
+      body: "We've been on Pro for 6 months, zero changes to our integration. Around 09:00 UTC today we started getting hammered with 429 errors. We are losing requests in production. What's going on?"
+    expected:
+      category: technical
+      priority: urgent
+      sentiment: frustrated
+      must_cite: "API Rate Limits"
+      must_contain_any:
+        - "status"
+        - "incident"
+        - "exponential backoff"
+
+  - id: 2fa-locked-out
+    ticket_id: t-003
+    ticket:
+      subject: "Locked out - 2FA SMS not arriving"
+      body: "I'm locked out. SMS codes never come through. Vodafone UK number. Tried 6 times this morning. Changed my phone last month."
+    expected:
+      category: technical
+      priority: high
+      sentiment: frustrated
+      must_cite: "Login Troubleshooting"
+      must_contain_any:
+        - "backup codes"
+        - "authenticator"
+        - "verification"
+
+  - id: gdpr-escalate
+    ticket_id: t-004
+    ticket:
+      subject: "GDPR Article 17 deletion request"
+      body: "Per GDPR Article 17, I am requesting the deletion of all personal data associated with my account. Please confirm in writing within the statutory 30-day timeframe."
+    expected:
+      category: account
+      priority: high
+      must_cite: "Data Export"
+      must_contain_any:
+        - "privacy team"
+        - "privacy@example.com"
+
+  - id: large-export-failure
+    ticket_id: t-005
+    ticket:
+      subject: "Big export not coming through"
+      body: "I requested a CSV export 2 days ago and the email never arrived. Workspace has roughly 80GB."
+    expected:
+      category: technical
+      priority: medium
+      must_cite: "Data Export"
+      must_contain_any:
+        - "50GB"
+        - "split"
+        - "smaller"
+        - "API"
+
+  - id: charge-after-cancellation
+    ticket_id: t-006
+    ticket:
+      subject: "Charged for plan I cancelled in March"
+      body: "I cancelled my Pro subscription on March 8 but I just saw another charge on my card on May 5 for $49. Please refund this immediately."
+    expected:
+      category: billing
+      priority: high
+      sentiment: frustrated
+      must_contain_any:
+        - "refund"
+        - "investigate"
+        - "escalate"
+
+  - id: feature-request-no-kb
+    ticket_id: t-008
+    ticket:
+      subject: "Loving the product - one suggestion"
+      body: "We have been using your platform for 4 months. One thing I miss: bulk-tag operations on records. Is this on the roadmap?"
+    expected:
+      category: feature_request
+      priority: low
+      sentiment: positive
+      must_contain_any:
+        - "product team"
+        - "roadmap"
+        - "feedback"
+
+metrics:
+  - name: category_accuracy
+    type: exact_match
+    target: 0.85
+    description: "Predicted category matches the expected label."
+
+  - name: priority_accuracy
+    type: exact_match
+    target: 0.75
+    description: "Predicted priority matches the expected label."
+
+  - name: citation_recall
+    type: exact_match
+    target: 0.85
+    description: "When a KB document is expected, at least one retrieved chunk comes from it."
+
+  - name: required_phrase_coverage
+    type: exact_match
+    target: 0.90
+    description: "At least one of the 3 drafts contains one of the must_contain_any phrases."
+
+  - name: prohibited_phrase_violations
+    type: numeric
+    target_lt: 1
+    description: "Total count of must_not_contain phrases that leaked into drafts. Must be 0."
+
+  - name: faithfulness_proxy
+    type: numeric
+    target: 0.85
+    description: "Fraction of drafts that cite at least one [doc-N] when retrievals exist. Replaced by LLM-judge in live mode."
+
+  - name: latency_p95_ms
+    type: numeric
+    target_lt: 3500
+    description: "p95 of end-to-end pipeline latency."
+
+  - name: cost_per_ticket_usd
+    type: numeric
+    target_lt: 0.05
+    description: "Mean cost per ticket across all drafts."

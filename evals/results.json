@@ -1,0 +1,215 @@
+{
+  "generatedAt": "2026-05-13T21:04:35.310Z",
+  "mode": "mock",
+  "dataset": {
+    "count": 8,
+    "metrics": [
+      {
+        "name": "category_accuracy",
+        "type": "exact_match",
+        "target": 0.85,
+        "description": "Predicted category matches the expected label."
+      },
+      {
+        "name": "priority_accuracy",
+        "type": "exact_match",
+        "target": 0.75,
+        "description": "Predicted priority matches the expected label."
+      },
+      {
+        "name": "citation_recall",
+        "type": "exact_match",
+        "target": 0.85,
+        "description": "When a KB document is expected, at least one retrieved chunk comes from it."
+      },
+      {
+        "name": "required_phrase_coverage",
+        "type": "exact_match",
+        "target": 0.9,
+        "description": "At least one of the 3 drafts contains one of the must_contain_any phrases."
+      },
+      {
+        "name": "prohibited_phrase_violations",
+        "type": "numeric",
+        "target_lt": 1,
+        "description": "Total count of must_not_contain phrases that leaked into drafts. Must be 0."
+      },
+      {
+        "name": "faithfulness_proxy",
+        "type": "numeric",
+        "target": 0.85,
+        "description": "Fraction of drafts that cite at least one [doc-N] when retrievals exist. Replaced by LLM-judge in live mode."
+      },
+      {
+        "name": "latency_p95_ms",
+        "type": "numeric",
+        "target_lt": 3500,
+        "description": "p95 of end-to-end pipeline latency."
+      },
+      {
+        "name": "cost_per_ticket_usd",
+        "type": "numeric",
+        "target_lt": 0.05,
+        "description": "Mean cost per ticket across all drafts."
+      }
+    ]
+  },
+  "aggregate": {
+    "category_accuracy": 1,
+    "priority_accuracy": 1,
+    "citation_recall": 1,
+    "required_phrase_coverage": 1,
+    "prohibited_phrase_violations": 0,
+    "faithfulness_proxy": 1,
+    "latency_p95_ms": 608,
+    "cost_per_ticket_usd": 0.024525
+  },
+  "cases": [
+    {
+      "id": "refund-within-window",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 608,
+      "cost_usd": 0.0252,
+      "pass": true,
+      "notes": []
+    },
+    {
+      "id": "refund-outside-window",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 607,
+      "cost_usd": 0.019799999999999998,
+      "pass": true,
+      "notes": []
+    },
+    {
+      "id": "api-rate-spike",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 608,
+      "cost_usd": 0.0336,
+      "pass": true,
+      "notes": []
+    },
+    {
+      "id": "2fa-locked-out",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 607,
+      "cost_usd": 0.0273,
+      "pass": true,
+      "notes": []
+    },
+    {
+      "id": "gdpr-escalate",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 606,
+      "cost_usd": 0.020399999999999998,
+      "pass": true,
+      "notes": []
+    },
+    {
+      "id": "large-export-failure",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 605,
+      "cost_usd": 0.023100000000000002,
+      "pass": true,
+      "notes": []
+    },
+    {
+      "id": "charge-after-cancellation",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 606,
+      "cost_usd": 0.0294,
+      "pass": true,
+      "notes": []
+    },
+    {
+      "id": "feature-request-no-kb",
+      "category_correct": true,
+      "priority_correct": true,
+      "citation_recall": true,
+      "required_phrase_hit": true,
+      "prohibited_phrase_hits": 0,
+      "faithfulness_proxy": 1,
+      "latency_ms": 602,
+      "cost_usd": 0.0174,
+      "pass": true,
+      "notes": []
+    }
+  ],
+  "metricStatus": {
+    "category_accuracy": {
+      "status": "pass",
+      "valueStr": "100.0%",
+      "targetStr": ">= 85%"
+    },
+    "priority_accuracy": {
+      "status": "pass",
+      "valueStr": "100.0%",
+      "targetStr": ">= 75%"
+    },
+    "citation_recall": {
+      "status": "pass",
+      "valueStr": "100.0%",
+      "targetStr": ">= 85%"
+    },
+    "required_phrase_coverage": {
+      "status": "pass",
+      "valueStr": "100.0%",
+      "targetStr": ">= 90%"
+    },
+    "prohibited_phrase_violations": {
+      "status": "pass",
+      "valueStr": "0.000",
+      "targetStr": "< 1"
+    },
+    "faithfulness_proxy": {
+      "status": "pass",
+      "valueStr": "1.000",
+      "targetStr": ">= 0.85"
+    },
+    "latency_p95_ms": {
+      "status": "pass",
+      "valueStr": "608ms",
+      "targetStr": "< 3500"
+    },
+    "cost_per_ticket_usd": {
+      "status": "pass",
+      "valueStr": "$0.0245",
+      "targetStr": "< 0.05"
+    }
+  }
+}
