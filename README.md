@@ -1,5 +1,9 @@
 # Support Copilot
 
+[![CI](https://github.com/amihailow/support-copilot/actions/workflows/ci.yml/badge.svg)](https://github.com/amihailow/support-copilot/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Node.js](https://img.shields.io/badge/node-20.x-339933?logo=node.js&logoColor=white)](.nvmrc)
+
 > AI assistant for human support agents - not a chatbot that replies to customers.
 
 Support teams burn $40-80/ticket on manual response writing. Existing AI tools either replace the agent (bad UX, hallucinations, brand risk) or are glorified search bars. Support Copilot sits next to the agent: classifies the ticket, retrieves grounded answers from the knowledge base, and suggests 3 response drafts with source citations. The agent stays in control.
