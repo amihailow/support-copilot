@@ -1,0 +1,32 @@
+[
+  {
+    "customerName": "Sarah Chen",
+    "customerEmail": "sarah@northstar.io",
+    "subject": "Need a refund - charged for plan I never used",
+    "body": "Hi, I signed up for the Pro plan 5 days ago and never used it. Life got in the way. Can I get a refund? I haven't logged in once since signing up."
+  },
+  {
+    "customerName": "Marcus Patel",
+    "customerEmail": "marcus@buildwise.dev",
+    "subject": "Suddenly getting 429s on production API",
+    "body": "We've been on the Pro plan for 6 months with no issues. Starting around 9am UTC today our integration is getting hammered with 429 errors. We haven't changed any code. What's going on?"
+  },
+  {
+    "customerName": "Linda Okafor",
+    "customerEmail": "linda@everbrew.com",
+    "subject": "Cannot log in - 2FA codes not arriving",
+    "body": "I'm locked out. The SMS codes never come through. I'm on a Vodafone UK number. Tried 6 times this morning. Already changed my phone last month - is that related?"
+  },
+  {
+    "customerName": "James O'Reilly",
+    "customerEmail": "james@oreilly-legal.com",
+    "subject": "GDPR deletion request",
+    "body": "Per GDPR Article 17, I am requesting the deletion of all personal data associated with my account. Please confirm completion in writing within the statutory timeframe."
+  },
+  {
+    "customerName": "Yuki Tanaka",
+    "customerEmail": "yuki@tanaka-studio.jp",
+    "subject": "Big export not coming through",
+    "body": "I requested a CSV export 2 days ago and the email never arrived. Workspace has about 80GB of data. What should I do?"
+  }
+]
